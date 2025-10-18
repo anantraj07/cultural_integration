@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultural Events - Integration Fest 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+        
+        #canvas3d { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.4; }
+        
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); z-index: 1000; padding: 20px 40px; border-bottom: 1px solid rgba(102, 126, 234, 0.2); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+        .nav-menu { list-style: none; display: flex; gap: 20px; align-items: center; }
+        .nav-link { text-decoration: none; color: #fff; font-weight: 500; padding: 8px 12px; transition: all 0.3s ease; border-radius: 6px; font-size: 0.9rem; }
+        .nav-link:hover { color: #667eea; background: rgba(102, 126, 234, 0.1); }
+        
+        .hero-small { position: relative; min-height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 150px 20px 60px; z-index: 10; }
+        .page-title { font-size: 4rem; font-weight: 900; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
+        .page-subtitle { font-size: 1.5rem; color: #8892b0; font-style: italic; }
+        
+        .page-section { position: relative; padding: 80px 20px; z-index: 10; }
+        .section-content { max-width: 1100px; margin: 0 auto; }
+        .section-title { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; text-align: center; }
+        .section-subtitle { font-size: 1.2rem; color: #8892b0; margin-bottom: 40px; font-style: italic; text-align: center; }
+        .section-text { font-size: 1.1rem; line-height: 1.9; color: #b8c5ff; padding: 30px; background: rgba(255, 255, 255, 0.02); border-left: 3px solid #667eea; border-radius: 8px; margin-bottom: 40px; }
+        
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
+        .feature-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 12px; padding: 40px 30px; transition: all 0.4s ease; }
+        .feature-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.05); border-color: rgba(102, 126, 234, 0.4); box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3); }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 20px; }
+        .feature-title { font-size: 1.5rem; color: #b8c5ff; margin-bottom: 15px; font-weight: 600; }
+        .feature-desc { color: #8892b0; line-height: 1.8; font-size: 1rem; }
+        
+        .btn { padding: 14px 35px; font-size: 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; text-decoration: none; border: none; background: #667eea; color: white; display: inline-block; margin: 10px; }
+        .btn:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
+        
+        @media (max-width: 768px) {
+            .page-title { font-size: 2.5rem; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas3d"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">Integration Fest</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#alaap" class="nav-link">Alaap</a></li>
+                <li><a href="#mun" class="nav-link">Model UN</a></li>
+                <li><a href="#btl" class="nav-link">Between The Lines</a></li>
+                <li><a href="#tdl" class="nav-link">Thru Da Lens</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero-small">
+        <h1 class="page-title">Cultural Events</h1>
+        <p class="page-subtitle">Where Creativity Meets Expression</p>
+    </section>
+
+    <section id="alaap" class="page-section">
+        <div class="section-content">
+            <h2 class="section-title">Alaap</h2>
+            <p class="section-subtitle">The Symphony of Indian Classical Music</p>
+            <p class="section-text">
+                Alaap celebrates the rich tradition of Indian classical music. Experience soulful performances, learn from maestros, and immerse yourself in the intricate ragas and rhythms that have captivated audiences for centuries. This event showcases the timeless beauty of Hindustani and Carnatic music traditions.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎼</div>
+                    <h3 class="feature-title">Classical Performances</h3>
+                    <p class="feature-desc">
+                        Witness mesmerizing performances by talented vocalists and instrumentalists showcasing both Hindustani and Carnatic traditions. Experience the depth and emotion of classical ragas performed by skilled artists.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎸</div>
+                    <h3 class="feature-title">Competition Categories</h3>
+                    <p class="feature-desc">
+                        Multiple categories including:<br>
+                        • Vocal (Hindustani & Carnatic)<br>
+                        • Instrumental (Sitar, Tabla, Flute, Violin, Veena)<br>
+                        • Fusion performances blending traditional and contemporary<br>
+                        • Light classical and semi-classical genres
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3 class="feature-title">Workshops & Masterclasses</h3>
+                    <p class="feature-desc">
+                        Interactive sessions with renowned artists to learn the nuances of classical music, performance techniques, and the rich heritage behind each raga and tala.
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#" class="btn">Register for Alaap</a>
+                <a href="#" class="btn">View Guidelines</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="mun" class="page-section" style="background: rgba(10, 10, 10, 0.5);">
+        <div class="section-content">
+            <h2 class="section-title">Model United Nations</h2>
+            <p class="section-subtitle">Where Diplomacy Meets Debate</p>
+            <p class="section-text">
+                Engage in diplomatic simulations tackling global issues. Represent nations, negotiate resolutions, and develop critical thinking, public speaking, and international relations skills in this prestigious forum. Experience the challenges and triumphs of international diplomacy.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 class="feature-title">Multiple Committees</h3>
+                    <p class="feature-desc">
+                        Diverse committees addressing pressing global challenges:<br>
+                        • UNSC (United Nations Security Council)<br>
+                        • UNHRC (Human Rights Council)<br>
+                        • DISEC (Disarmament & International Security)<br>
+                        • Specialized agencies<br>
+                        • Crisis committees for advanced delegates
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎤</div>
+                    <h3 class="feature-title">Delegate Experience</h3>
+                    <p class="feature-desc">
+                        Represent countries, draft resolutions, form strategic alliances, and engage in moderated and unmoderated caucuses. Develop your negotiation, research, and public speaking skills in realistic diplomatic scenarios.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Awards & Recognition</h3>
+                    <p class="feature-desc">
+                        Recognition for excellence:<br>
+                        • Best Delegate<br>
+                        • Outstanding Delegate<br>
+                        • High Commendation<br>
+                        • Special Mentions for exceptional diplomacy<br>
+                        • Best Delegation Award
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#" class="btn">Register for MUN</a>
+                <a href="#" class="btn">View Background Guides</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="btl" class="page-section">
+        <div class="section-content">
+            <h2 class="section-title">Between The Lines</h2>
+            <p class="section-subtitle">The Art of Written Expression</p>
+            <p class="section-text">
+                A celebration of creative and analytical writing. From poetry and fiction to essays and critiques, this event showcases the power of words to inspire, provoke, and transform. Let your imagination flow and your ideas shine through the written word.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3 class="feature-title">Writing Categories</h3>
+                    <p class="feature-desc">
+                        Diverse categories for every writer:<br>
+                        • Poetry (Free verse, Sonnets, Haiku)<br>
+                        • Short Stories & Flash Fiction<br>
+                        • Essays (Argumentative, Narrative, Descriptive)<br>
+                        • Literary Criticism & Analysis<br>
+                        • Creative Non-Fiction<br>
+                        • Micro-fiction challenges
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3 class="feature-title">Themes & Prompts</h3>
+                    <p class="feature-desc">
+                        Diverse themes challenging writers to explore new perspectives and push creative boundaries. From contemporary social issues to timeless philosophical questions, find your voice and craft compelling narratives.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">Publication Opportunities</h3>
+                    <p class="feature-desc">
+                        Selected works featured in:<br>
+                        • Integration Fest literary compilation<br>
+                        • Digital platforms and social media<br>
+                        • College literary magazines<br>
+                        • Recognition by established writers and publishers
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#" class="btn">Submit Your Work</a>
+                <a href="#" class="btn">Writing Guidelines</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tdl" class="page-section" style="background: rgba(10, 10, 10, 0.5);">
+        <div class="section-content">
+            <h2 class="section-title">Thru Da Lens</h2>
+            <p class="section-subtitle">Capturing Moments, Creating Stories</p>
+            <p class="section-text">
+                A photography competition celebrating visual storytelling. Whether you're capturing candid moments, architectural beauty, or abstract concepts, showcase your unique perspective through the lens. Every photograph tells a story—what's yours?
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📷</div>
+                    <h3 class="feature-title">Competition Categories</h3>
+                    <p class="feature-desc">
+                        Multiple categories to showcase your skills:<br>
+                        • Portrait Photography<br>
+                        • Landscape & Nature<br>
+                        • Street Photography<br>
+                        • Macro & Close-up<br>
+                        • Architectural Photography<br>
+                        • Conceptual & Abstract<br>
+                        • Black & White Photography<br>
+                        • Mobile Photography
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h3 class="feature-title">Exhibition & Showcase</h3>
+                    <p class="feature-desc">
+                        Selected photographs displayed in a curated exhibition throughout the fest, celebrating visual excellence. Your work will be seen by thousands of visitors and photography enthusiasts.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Judging Criteria</h3>
+                    <p class="feature-desc">
+                        Professional evaluation based on:<br>
+                        • Composition & Framing<br>
+                        • Creativity & Originality<br>
+                        • Technical Excellence<br>
+                        • Storytelling & Emotional Impact<br>
+                        • Adherence to theme<br>
+                        Judged by professional photographers and artists
+                    </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#" class="btn">Submit Photos</a>
+                <a href="#" class="btn">Submission Guidelines</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const canvas = document.getElementById('canvas3d');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(102, 126, 234, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = Array.from({ length: 80 }, () => new Particle());
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
