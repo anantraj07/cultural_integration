@@ -5,17 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cultural Events - Integration Fest 2026</title>
     <style>
+      :root {
+	  --color-primary-blue: #667eea;
+	  --color-primary-purple: #764ba2;
+	  --color-secondary-pink: #f093fb;
+	  --color-fg-light: #ffffff;
+	  --color-bg-card-alpha: rgba(20, 20, 20, 0.9);
+	  --color-alpha-15: rgba(255, 255, 255, 0.15);
+	  --color-alpha-30: rgba(255, 255, 255, 0.3);
+	  --color-alpha-40: rgba(255, 255, 255, 0.4);
+      }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
         
         #canvas3d { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.4; }
         
-        .navbar { position: fixed; top: 0; width: 100%; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); z-index: 1000; padding: 20px 40px; border-bottom: 1px solid rgba(102, 126, 234, 0.2); }
-        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
-        .nav-menu { list-style: none; display: flex; gap: 20px; align-items: center; }
-        .nav-link { text-decoration: none; color: #fff; font-weight: 500; padding: 8px 12px; transition: all 0.3s ease; border-radius: 6px; font-size: 0.9rem; }
-        .nav-link:hover { color: #667eea; background: rgba(102, 126, 234, 0.1); }
+        .navbar {
+	    position: fixed;
+	    top: 0;
+	    width: 100%;
+	    background: rgba(10, 10, 10, 0.95);
+	    backdrop-filter: blur(12px);
+	    z-index: 10001; /* above hero and events */
+	    padding: 12px 40px;
+	    display: flex;
+	    justify-content: center;
+	    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+	}
+
+	.nav-container {
+	    width: 100%;
+	    max-width: 1400px;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	}
+
+	/* Logo */
+	.nav-logo {
+	    font-size: 1.8rem;
+	    font-weight: 700;
+	    background: linear-gradient(
+		135deg,
+		var(--color-primary-blue),
+		var(--color-primary-purple),
+		var(--color-secondary-pink)
+	    );
+	    -webkit-background-clip: text;
+	    -webkit-text-fill-color: transparent;
+	    cursor: pointer;
+	}
+
+	/* Menu */
+	.nav-menu {
+	    list-style: none;
+	    display: flex; /* horizontal menu */
+	    gap: 30px;
+	    margin: 0;
+	    align-items: center;
+	}
+
+	.nav-item {
+	    position: relative;
+	}
+
+	.nav-link {
+	    text-decoration: none;
+	    color: var(--color-fg-light);
+	    font-weight: 600;
+	    padding: 10px 15px;
+	    display: inline-block;
+	    transition: all 0.3s ease;
+	}
+
+	.nav-link:hover {
+	    color: var(--color-primary-blue);
+	    transform: scale(1.05);
+	}
+
+	/* Dropdown Menu */
+	.dropdown-menu {
+	    position: absolute;
+	    top: 100%; /* below parent */
+	    left: 0;
+	    background: var(--color-bg-card-alpha);
+	    border: 1px solid var(--color-alpha-30);
+	    border-radius: 12px;
+	    padding: 10px 0;
+	    min-width: 180px;
+	    backdrop-filter: blur(10px);
+	    box-shadow: 0 10px 30px var(--color-alpha-40);
+	    z-index: 10002;
+	    opacity: 0;
+	    visibility: hidden;
+	    transition:
+		opacity 0.3s ease,
+		visibility 0.3s ease;
+	}
+
+	.dropdown-menu li {
+	    list-style: none;
+	}
+
+	.dropdown:hover .dropdown-menu {
+	    opacity: 1;
+	    visibility: visible;
+	}
+
+	.dropdown-link {
+	    display: block;
+	    padding: 10px 20px;
+	    text-decoration: none;
+	    color: var(--color-fg-light);
+	    font-weight: 500;
+	    transition: all 0.3s ease;
+	}
+
+	.dropdown-link:hover {
+	    color: var(--color-primary-purple);
+	    background: var(--color-alpha-15);
+	}
+
+	@media (max-width: 768px) {
+	    .nav-container {
+		flex-direction: column;
+		align-items: flex-start;
+	    }
+
+	    .nav-menu {
+		flex-direction: column;
+		gap: 15px;
+		width: 100%;
+		padding: 10px 0;
+		background: rgba(10, 10, 10, 0.95);
+		border-radius: 12px;
+	    }
+
+	    .dropdown-menu {
+		position: relative;
+		top: 0;
+		left: 0;
+		box-shadow: none;
+		border: none;
+	    }
+
+	    .nav-link {
+		width: 100%;
+		padding: 10px 20px;
+	    }
+
+	    .dropdown-link {
+		padding-left: 30px;
+	    }
+	}
         
         .hero-small { position: relative; min-height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 150px 20px 60px; z-index: 10; }
         .page-title { font-size: 4rem; font-weight: 900; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
@@ -44,20 +186,30 @@
     </style>
 </head>
 <body>
-    <canvas id="canvas3d"></canvas>
+  <canvas id="canvas3d"></canvas>
+  
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Integration Fest</div>
+      <ul class="nav-menu">
+	<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">Integration Fest</div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#alaap" class="nav-link">Alaap</a></li>
-                <li><a href="#mun" class="nav-link">Model UN</a></li>
-                <li><a href="#btl" class="nav-link">Between The Lines</a></li>
-                <li><a href="#tdl" class="nav-link">Thru Da Lens</a></li>
-            </ul>
-        </div>
-    </nav>
+	<!-- Tech Dropdown -->
+	<li class="nav-item dropdown">
+          <a href="#" class="nav-link">Tech ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="sparq.html" class="dropdown-link">SPARQ</a></li>
+            <li><a href="mtrp.html" class="dropdown-link">MTRP</a></li>
+            <li><a href="integration-bee.html" class="dropdown-link">Integration Bee</a></li>
+          </ul>
+	</li>
+
+	<li class="nav-item"><a href="cultural.html" class="nav-link">Cultural</a></li>
+	<li class="nav-item"><a href="sports.html" class="nav-link">Sports</a></li>
+	<li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+      </ul>
+    </div>
+  </nav>
 
     <section class="hero-small">
         <h1 class="page-title">Cultural Events</h1>
