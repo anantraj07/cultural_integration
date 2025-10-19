@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -44,13 +45,18 @@
     </nav>
 
     <section class="hero-small">
+        <div class="decorative-circle circle-1"></div>
+        <div class="decorative-circle circle-2"></div>
         <h1 class="page-title">Cultural Events</h1>
         <p class="page-subtitle">Where Creativity Meets Expression</p>
     </section>
 
     <section id="alaap" class="page-section">
         <div class="section-content">
-            <h2 class="section-title">Alaap</h2>
+            <div class="event-header">
+                <div class="event-icon">🎵</div>
+                <h2 class="section-title">Alaap</h2>
+            </div>
             <p class="section-subtitle">The Symphony of Indian Classical and Semi-Classical Music</p>
             <p class="section-text">
                 Alaap is a two-day-long singing event celebrating the rich heritage of Indian classical and semi-classical music. 
@@ -89,16 +95,26 @@
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#" class="btn">Register for Alaap</a>
-                <a href="#" class="btn">View Guidelines</a>
+            <div class="registration-box">
+                <h3 class="registration-title">Register for Alaap</h3>
+                <p class="coming-soon">Coming Soon</p>
+                <div id="alaap-form" class="form-container" style="display: none;">
+                    <!-- <iframe src="YOUR_GOOGLE_FORM_LINK" width="100%" height="600" frameborder="0"></iframe> -->
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#" class="btn poster-btn">View Poster - Coming Soon</a>
             </div>
         </div>
     </section>
 
     <section id="mun" class="page-section" style="background: rgba(10, 10, 10, 0.5);">
         <div class="section-content">
-            <h2 class="section-title">Model United Nations</h2>
+            <div class="event-header">
+                <div class="event-icon">🌍</div>
+                <h2 class="section-title">Model United Nations</h2>
+            </div>
             <p class="section-subtitle">Where Diplomacy Meets Debate</p>
             <p class="section-text">
                 Model UN is a two-day simulation of real-world United Nations proceedings, 
@@ -138,16 +154,26 @@
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#" class="btn">Register for MUN</a>
-                <a href="#" class="btn">View Background Guides</a>
+            <div class="registration-box">
+                <h3 class="registration-title">Register for MUN</h3>
+                <p class="coming-soon">Coming Soon</p>
+                <div id="mun-form" class="form-container" style="display: none;">
+                    <!-- <iframe src="YOUR_GOOGLE_FORM_LINK" width="100%" height="600" frameborder="0"></iframe> -->
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#" class="btn poster-btn">View Poster - Coming Soon</a>
             </div>
         </div>
     </section>
 
     <section id="btl" class="page-section">
         <div class="section-content">
-            <h2 class="section-title">Between The Lines</h2>
+            <div class="event-header">
+                <div class="event-icon">✍️</div>
+                <h2 class="section-title">Between The Lines</h2>
+            </div>
             <p class="section-subtitle">The Art of Written Expression</p>
             <p class="section-text">
                 A nationwide online creative writing contest, Between the Lines invites participants to let their imagination run free. 
@@ -185,16 +211,26 @@
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#" class="btn">Submit Your Work</a>
-                <a href="#" class="btn">Writing Guidelines</a>
+            <div class="registration-box">
+                <h3 class="registration-title">Submit Your Work</h3>
+                <p class="coming-soon">Coming Soon</p>
+                <div id="btl-form" class="form-container" style="display: none;">
+                    <!-- <iframe src="YOUR_GOOGLE_FORM_LINK" width="100%" height="600" frameborder="0"></iframe> -->
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#" class="btn poster-btn">View Poster - Coming Soon</a>
             </div>
         </div>
     </section>
 
     <section id="tdl" class="page-section" style="background: rgba(10, 10, 10, 0.5);">
         <div class="section-content">
-            <h2 class="section-title">Thru Da Lens</h2>
+            <div class="event-header">
+                <div class="event-icon">📸</div>
+                <h2 class="section-title">Thru Da Lens</h2>
+            </div>
             <p class="section-subtitle">Capturing Moments, Creating Stories</p>
             <p class="section-text">
                 Thru Da Lens is a pan-India online photography contest celebrating the art 
@@ -236,12 +272,47 @@
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#" class="btn">Submit Photos</a>
-                <a href="#" class="btn">Submission Guidelines</a>
+            <div class="registration-box">
+                <h3 class="registration-title">Submit Your Photos</h3>
+                <p class="coming-soon">Coming Soon</p>
+                <div id="tdl-form" class="form-container" style="display: none;">
+                    <!-- <iframe src="YOUR_GOOGLE_FORM_LINK" width="100%" height="600" frameborder="0"></iframe> -->
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#" class="btn poster-btn">View Poster - Coming Soon</a>
             </div>
         </div>
     </section>
+
+    <!-- Cultural Design Section -->
+    <section class="cultural-design">
+        <div class="design-wrapper">
+            <div class="mandala-container">
+                <svg class="mandala" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(102, 126, 234, 0.2)" stroke-width="0.5"/>
+                    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(118, 75, 162, 0.2)" stroke-width="0.5"/>
+                    <circle cx="100" cy="100" r="40" fill="none" stroke="rgba(240, 147, 251, 0.2)" stroke-width="0.5"/>
+                    <circle cx="100" cy="100" r="20" fill="none" stroke="rgba(102, 126, 234, 0.3)" stroke-width="0.5"/>
+                    <path d="M 100 20 L 100 180 M 20 100 L 180 100" stroke="rgba(102, 126, 234, 0.15)" stroke-width="0.3"/>
+                    <path d="M 35 35 L 165 165 M 165 35 L 35 165" stroke="rgba(118, 75, 162, 0.15)" stroke-width="0.3"/>
+                </svg>
+            </div>
+            <div class="cultural-quote">
+                <p>"Where words fail, music speaks. Where thoughts pause, art begins."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Integration Fest 2026</div>
+            <p class="footer-text">Indian Statistical Institute, Kolkata</p>
+            <p class="footer-copyright">© 2026 Indian Statistical Institute. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
