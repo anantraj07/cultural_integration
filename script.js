@@ -101,14 +101,19 @@ dropdowns.forEach(dropdown => {
             if (window.innerWidth <= 768) {
                 e.preventDefault();
                 e.stopPropagation();
-                dropdown.classList.toggle('active');
                 
-                // Close other dropdowns
+                // Check if this dropdown is already active
+                const isCurrentlyActive = dropdown.classList.contains('active');
+                
+                // Close all dropdowns first
                 dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        otherDropdown.classList.remove('active');
-                    }
+                    otherDropdown.classList.remove('active');
                 });
+                
+                // If it wasn't active, open it. If it was active, keep it closed (toggle behavior)
+                if (!isCurrentlyActive) {
+                    dropdown.classList.add('active');
+                }
             }
         });
     }
