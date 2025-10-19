@@ -90,7 +90,7 @@ if (hamburger && navMenu) {
     });
 }
 
-// Dropdown Toggle for Mobile - FIXED
+// Dropdown Toggle for Mobile - WORKING VERSION
 const dropdowns = document.querySelectorAll('.dropdown');
 
 dropdowns.forEach(dropdown => {
@@ -102,19 +102,19 @@ dropdowns.forEach(dropdown => {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Get current state before any changes
-                const wasActive = dropdown.classList.contains('active');
+                // Check if THIS specific dropdown is currently active
+                const isThisActive = dropdown.classList.contains('active');
                 
-                // Close ALL dropdowns first
-                dropdowns.forEach(d => {
-                    d.classList.remove('active');
-                });
+                // Close all dropdowns
+                dropdowns.forEach(d => d.classList.remove('active'));
                 
-                // If this dropdown was NOT active, open it
-                // If it WAS active, it stays closed
-                if (!wasActive) {
+                // If this one was closed, open it now
+                if (!isThisActive) {
                     dropdown.classList.add('active');
                 }
+                // If it was open, it stays closed (already removed above)
+                
+                console.log('Dropdown clicked, isActive:', !isThisActive); // Debug log
             }
         });
     }
