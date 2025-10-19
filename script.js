@@ -97,22 +97,22 @@ dropdowns.forEach(dropdown => {
     const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
     
     if (dropdownToggle) {
+        let clickCount = 0;
+        
         dropdownToggle.addEventListener('click', (e) => {
             if (window.innerWidth <= 768) {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Toggle the clicked dropdown
-                const isActive = dropdown.classList.contains('active');
+                // Simply toggle this specific dropdown
+                dropdown.classList.toggle('active');
                 
-                // Close all dropdowns
-                dropdowns.forEach(d => d.classList.remove('active'));
-                
-                // If it wasn't active before, open it
-                if (!isActive) {
-                    dropdown.classList.add('active');
-                }
-                // If it was active, it stays closed (already removed above)
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                    }
+                });
             }
         });
     }
