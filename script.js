@@ -60,39 +60,21 @@ window.addEventListener('resize', () => {
     particles.forEach(p => p.reset());
 });
 
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const href = this.getAttribute('href');
-        
-        if (href === '#') return;
-        
-        const target = document.querySelector(href);
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            // Close mobile menu after clicking
-            if (navMenu) navMenu.classList.remove('active');
-            if (hamburger) hamburger.classList.remove('active');
-        }
-    });
-});
+// Navigation Elements
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
+const dropdowns = document.querySelectorAll('.dropdown');
 
 // Hamburger Menu Toggle
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
-
-if (hamburger && navMenu) {
-    hamburger.addEventListener('click', (e) => {
+if (navToggle && navMenu) {
+    navToggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        hamburger.classList.toggle('active');
+        navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
     });
 }
 
-// Dropdown Toggle for Mobile - WORKING VERSION
-const dropdowns = document.querySelectorAll('.dropdown');
-
+// Dropdown Toggle for Mobile
 dropdowns.forEach(dropdown => {
     const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
     
@@ -102,22 +84,43 @@ dropdowns.forEach(dropdown => {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Check if THIS specific dropdown is currently active
                 const isThisActive = dropdown.classList.contains('active');
                 
                 // Close all dropdowns
                 dropdowns.forEach(d => d.classList.remove('active'));
                 
-                // If this one was closed, open it now
+                // Toggle this dropdown
                 if (!isThisActive) {
                     dropdown.classList.add('active');
                 }
-                // If it was open, it stays closed (already removed above)
-                
-                console.log('Dropdown clicked, isActive:', !isThisActive); // Debug log
             }
         });
     }
+});
+
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        if (href === '#') return;
+        
+        // Don't prevent default for dropdown toggles on mobile
+        if (this.classList.contains('dropdown-toggle') && window.innerWidth <= 768) {
+            return;
+        }
+        
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Close mobile menu after clicking
+            if (navMenu) navMenu.classList.remove('active');
+            if (navToggle) navToggle.classList.remove('active');
+            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+        }
+    });
 });
 
 // Close menu when clicking outside
@@ -126,9 +129,7 @@ document.addEventListener('click', (e) => {
         if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
             navMenu.classList.remove('active');
             navToggle.classList.remove('active');
-            dropdowns.forEach(dropdown => {
-                dropdown.classList.remove('active');
-            });
+            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
         }
     }
 });
@@ -138,9 +139,7 @@ window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
         if (navMenu) navMenu.classList.remove('active');
         if (navToggle) navToggle.classList.remove('active');
-        dropdowns.forEach(dropdown => {
-            dropdown.classList.remove('active');
-        });
+        dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
     }
 });
 
@@ -171,67 +170,70 @@ document.querySelectorAll('.page-section').forEach(section => {
 document.querySelectorAll('.poster-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        // Create notification effect
-        const notification = document.createElement('div');
-        notification.textContent = 'Posters will be released soon! Stay tuned!';
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 20px 40px;
-            border-radius: 10px;
-            font-weight: 600;
-            z-index: 2000;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
-            animation: slideDown 0.5s ease;
-            max-width: 90%;
-            text-align: center;
-        `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.animation = 'slideUp 0.5s ease';
-            setTimeout(() => {
-                notification.remove();
-            }, 500);
-        }, 3000);
+        showNotification('Posters will be released soon! Stay tuned!');
     });
 });
 
-// Add animation keyframes dynamically
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translate(-50%, -30px);
-        }
-        to {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
+// Notification Function
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 20px 40px;
+        border-radius: 10px;
+        font-weight: 600;
+        z-index: 2000;
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+        animation: slideDown 0.5s ease;
+        max-width: 90%;
+        text-align: center;
+    `;
+    
+    // Add keyframes
+    if (!document.getElementById('notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, -30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, 0);
+                }
+            }
+            
+            @keyframes slideUp {
+                from {
+                    opacity: 1;
+                    transform: translate(-50%, 0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translate(-50%, -30px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
     }
     
-    @keyframes slideUp {
-        from {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
-        to {
-            opacity: 0;
-            transform: translate(-50%, -30px);
-        }
-    }
-`;
-document.head.appendChild(style);
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideUp 0.5s ease';
+        setTimeout(() => notification.remove(), 500);
+    }, 3000);
+}
 
 // Parallax effect for hero section
-let lastScrollTop = 0;
 window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const hero = document.querySelector('.hero-small');
@@ -243,8 +245,6 @@ window.addEventListener('scroll', () => {
             hero.style.opacity = 1 - (scrollTop / heroHeight);
         }
     }
-    
-    lastScrollTop = scrollTop;
 }, { passive: true });
 
 // Add hover effect to feature cards
@@ -256,28 +256,6 @@ document.querySelectorAll('.feature-card').forEach(card => {
     card.addEventListener('mouseleave', function() {
         this.style.transform = 'translateY(0) scale(1)';
     });
-});
-
-// Animate numbers or stats if needed
-function animateValue(element, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        element.textContent = Math.floor(progress * (end - start) + start);
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-}
-
-// Add sparkle effect on page load
-window.addEventListener('load', () => {
-    const title = document.querySelector('.page-title');
-    if (title) {
-        title.style.animation = 'fadeInDown 1s ease, sparkle 3s infinite';
-    }
 });
 
 // Add smooth scroll behavior
