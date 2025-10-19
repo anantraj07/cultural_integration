@@ -122,10 +122,10 @@ dropdowns.forEach(dropdown => {
 
 // Close menu when clicking outside
 document.addEventListener('click', (e) => {
-    if (navMenu && hamburger) {
-        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+    if (navMenu && navToggle) {
+        if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
             navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
+            navToggle.classList.remove('active');
             dropdowns.forEach(dropdown => {
                 dropdown.classList.remove('active');
             });
@@ -137,7 +137,7 @@ document.addEventListener('click', (e) => {
 window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
         if (navMenu) navMenu.classList.remove('active');
-        if (hamburger) hamburger.classList.remove('active');
+        if (navToggle) navToggle.classList.remove('active');
         dropdowns.forEach(dropdown => {
             dropdown.classList.remove('active');
         });
